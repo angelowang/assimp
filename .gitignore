@@ -6,9 +6,7 @@ build
 *.sdf
 
 # Visual Studio
-*.sln
 *.ncb
-*.vcproj
 *.opensdf
 *.sdf
 *.tlog
@@ -16,7 +14,6 @@ build
 *.pdb
 *.exp
 *.lib
-*.suo
 
 # Output
 bin/
@@ -45,3 +42,4 @@ __pycache__
 *.cache
 *.log
 *.lastbuildstate
+
