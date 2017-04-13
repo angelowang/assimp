@@ -55,6 +55,10 @@ void ExportSceneSTL(const char* pFile,IOSystem* pIOSystem, const aiScene* pScene
 	// invoke the exporter 
 	STLExporter exporter(pFile, pScene);
 
+	if (exporter.mOutput.fail() || exporter.mOutput.bad()) {
+		throw DeadlyExportError("could not export as the limit of the file size is reached.");
+	}
+
 	// we're still here - export successfully completed. Write the file.
 	boost::scoped_ptr<IOStream> outfile (pIOSystem->Open(pFile,"wt"));
 	if(outfile == NULL) {
@@ -67,6 +71,10 @@ void ExportSceneSTLBinary(const char* pFile,IOSystem* pIOSystem, const aiScene* 
 {
 	// invoke the exporter 
 	STLExporter exporter(pFile, pScene, true);
+
+	if (exporter.mOutput.fail() || exporter.mOutput.bad()) {
+		throw DeadlyExportError("could not export as the limit of the file size is reached.");
+	}
 
 	// we're still here - export successfully completed. Write the file.
 	boost::scoped_ptr<IOStream> outfile (pIOSystem->Open(pFile,"wt"));

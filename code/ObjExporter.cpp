@@ -56,6 +56,13 @@ void ExportSceneObj(const char* pFile,IOSystem* pIOSystem, const aiScene* pScene
 	// invoke the exporter 
 	ObjExporter exporter(pFile, pScene);
 
+	if (exporter.mOutput.fail() ||
+		exporter.mOutput.bad() ||
+		exporter.mOutputMat.fail() ||
+		exporter.mOutputMat.bad()) {
+		throw DeadlyExportError("could not export as the limit of the file size is reached.");
+	}
+
 	// we're still here - export successfully completed. Write both the main OBJ file and the material script
 	{
 		boost::scoped_ptr<IOStream> outfile (pIOSystem->Open(pFile,"wt"));

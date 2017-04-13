@@ -81,6 +81,10 @@ void ExportSceneCollada(const char* pFile, IOSystem* pIOSystem, const aiScene* p
 	// invoke the exporter 
 	ColladaExporter iDoTheExportThing( pScene, pIOSystem, path, file);
 
+	if (iDoTheExportThing.mOutput.fail() || iDoTheExportThing.mOutput.bad()) {
+		throw DeadlyExportError("could not export as the limit of the file size is reached.");
+	}
+
 	// we're still here - export successfully completed. Write result to the given IOSYstem
 	boost::scoped_ptr<IOStream> outfile (pIOSystem->Open(pFile,"wt"));
 	if(outfile == NULL) {
